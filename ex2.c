@@ -48,7 +48,6 @@ int main(int argc,char **argv) {
 		int m=0;
 		for(m=0; m<lines; m=m+4) {
 			MPI_Recv(s, 400, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &status);
-			printf("Recv s is: %s\n", s);
 			//output the nucleotide sequence and the GC content fastq to the output file
 			fprintf(Fout, "%s", s);
 		}
@@ -74,6 +73,7 @@ int main(int argc,char **argv) {
 		getline(&buffer[Line], &len, Fin);
 
 		int step = lines/(size-1);
+		// We dont want to split a 4-row
 		if (step%4 != 0) {
 			step -= step%4;
 		}
